@@ -1,18 +1,38 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { FaChevronDown, FaChevronUp, FaBars, FaTimes } from "react-icons/fa";
+import {
+  FaChevronDown,
+  FaChevronUp,
+  FaBars,
+  FaTimes,
+  FaSearch,
+  FaMoon,
+} from "react-icons/fa";
 
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    // Optionally, implement the logic to toggle dark mode on the website
+  };
 
   return (
-    <nav className="w-full bg-white shadow-md">
+    <nav
+      className={`w-full bg-white shadow-md ${
+        isDarkMode ? "bg-gray-800" : "bg-white"
+      } transition-colors duration-300`}
+    >
       <div className="mx-10">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="text-5xl font-extrabold">
+            <Link
+              href="/"
+              className="text-5xl font-extrabold text-gray-800 dark:text-white"
+            >
               Rezi
             </Link>
             <div className="px-10 hidden md:flex space-x-8 items-center">
@@ -106,12 +126,31 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Buttons for Desktop */}
+          {/* Icons + Login + Create Resume Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link href="/login" className="text-gray-600 hover:text-gray-900">
+            {/* Search Icon */}
+            <button className="text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-gray-300 focus:outline-none transition-transform duration-200 transform hover:scale-110">
+              <FaSearch size={22} />
+            </button>
+
+            {/* Dark Mode Toggle Icon */}
+            <button
+              onClick={toggleDarkMode}
+              className="text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-gray-300 focus:outline-none transition-transform duration-200 transform hover:rotate-45"
+            >
+              <FaMoon size={22} />
+            </button>
+
+            {/* Log in Button */}
+            <Link
+              href="/login"
+              className="text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-gray-300 transition-all"
+            >
               Log in
             </Link>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700">
+
+            {/* Create Resume Button */}
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition-colors duration-300">
               Create Free Resume
             </button>
           </div>
